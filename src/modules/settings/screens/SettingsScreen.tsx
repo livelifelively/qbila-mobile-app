@@ -6,7 +6,6 @@ import { SettingsNavProps } from '../SettingsParamList';
 import { AuthContext } from '../../auth/AuthProvider';
 import Topbar from '../../../components/design/Topbar';
 import { WhiteView } from '../../../components/design/WhiteView';
-import { LockIcon, LogoutIcon, UserIcon } from '../../../icons';
 import { GlobalAlertsContext } from '../../../contexts/GlobalAlertsContext';
 
 const SettingsScreen = ({ navigation }: SettingsNavProps<'Settings'>) => {
@@ -33,21 +32,6 @@ const SettingsScreen = ({ navigation }: SettingsNavProps<'Settings'>) => {
           </View>
           <View>
             <Text style={styles.settingsActionTitle}>Profile</Text>
-          </View>
-        </WhiteView>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.settingsAction}
-        onPress={() => {
-          navigation.navigate('SecuritySettings');
-        }}
-      >
-        <WhiteView style={styles.settingsActionWrapper}>
-          <View style={styles.settingsActionIcon}>
-            <LockIcon />
-          </View>
-          <View>
-            <Text style={styles.settingsActionTitle}>Security Settings</Text>
           </View>
         </WhiteView>
       </TouchableOpacity>

@@ -66,7 +66,7 @@ const lightThemeColors = {
   outlineButtonBackground: '#fff',
   outlineButtonText: '#2B2B2B',
   textInputBackground: '#fff',
-  textInputBorderColor: '#e5e5e5',
+  textInputBorderColor: '#f0f0f0',
   placeholderColor: '#625E59',
   checkboxColorPrimary: '#44CBB3',
   checkboxColorSecondary: '#fff',
