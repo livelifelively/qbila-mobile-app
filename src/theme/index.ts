@@ -61,7 +61,9 @@ const Theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#FFB850',
+    primary: '#0094ff',
+    cta: '#0094ff',
+    ctaText: '#fff',
     background: '#FFB850',
     text: '#2B2B2B',
     textButton: '#363eff',

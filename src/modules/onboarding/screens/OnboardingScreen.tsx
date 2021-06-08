@@ -23,7 +23,7 @@ const OnboardingScreen = () => {
 
   const scrollTo = () => {
     if (currentIndex < slides.length - 1) {
-      slidesRef.current.scrollToIndex({
+      slidesRef.current?.scrollToIndex({
         index: currentIndex + 1,
       });
     } else {
@@ -43,7 +43,7 @@ const OnboardingScreen = () => {
           showsHorizontalScrollIndicator={false}
           bounces={false}
           pagingEnabled
-          keyExtractor={(key) => key.id}
+          keyExtractor={(key) => key.id.toString()}
           onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], { useNativeDriver: false })}
           onViewableItemsChanged={viewableItemsChanged}
           viewabilityConfig={viewConfig}

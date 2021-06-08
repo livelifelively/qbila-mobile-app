@@ -9,6 +9,7 @@ export const AuthContext = React.createContext<{
   loginEmailPassword: (user: { email: string; token: string; refreshToken: string }) => void;
   loginPasscode: (passcode: string) => void;
   logout: () => void;
+  reset: () => void;
   signUp: () => void;
   softLogout: () => void;
   setPasscode: (passcode: string) => void;
@@ -21,6 +22,7 @@ export const AuthContext = React.createContext<{
   loginEmailPassword: (user: { email: string; token: string; refreshToken: string }) => {},
   loginPasscode: (passcode: string) => {},
   logout: () => {},
+  reset: () => {},
   signUp: () => {},
   softLogout: () => {},
   setPasscode: (passcode: string) => {},
@@ -114,6 +116,17 @@ export const AuthProvider: React.FC = ({ children }) => {
           await AsyncStorage.setItem('authState', userAuthState);
 
           Logger.debug('AUTH_PROVIDER__LOGOUT--USER_REMOVED', user);
+        },
+        reset: async () => {
+          const userAuthState: AuthState = 'NEW_USER';
+
+          setUser(null);
+          setAuthState(userAuthState);
+
+          await AsyncStorage.removeItem('user');
+          await AsyncStorage.setItem('authState', userAuthState);
+
+          Logger.debug('AUTH_PROVIDER__LOGOUT--USER_RESET', user);
         },
         signUp: () => {
           //
