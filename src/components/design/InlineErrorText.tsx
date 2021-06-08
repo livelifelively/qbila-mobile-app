@@ -20,7 +20,5 @@ const styles = StyleSheet.create({
   inlineErrorText: {
     ...globalStyles.errorText,
   },
-  inlineErrorTextWrapper: {
-    height: 12,
-  },
+  inlineErrorTextWrapper: {},
 });

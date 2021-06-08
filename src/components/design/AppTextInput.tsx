@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
+import Theme from '../../theme';
 
 import { globalStyles } from '../../theme/globalStyles';
 import { InlineErrorText } from './InlineErrorText';
@@ -10,8 +11,8 @@ interface AppTextInputProps {
   onChangeText: (text: string) => void;
   placeholder?: string;
   style?: {
-    input: Record<string, unknown> | undefined;
-    wrapper: Record<string, unknown> | undefined;
+    input?: Record<string, unknown> | undefined;
+    wrapper?: Record<string, unknown> | undefined;
   };
   size?: 'normal' | 'large';
   keyboardType?:
@@ -31,7 +32,6 @@ interface AppTextInputProps {
   value: string;
   autoCorrect?: boolean;
   maxLength?: number;
-  placeholderTextColor?: string;
   autoCapitalize?: 'sentences' | 'none' | 'words' | 'characters' | undefined;
   secureTextEntry?: boolean;
   onBlur?: (e: any) => void;
@@ -46,7 +46,6 @@ export const AppTextInput: React.FC<AppTextInputProps> = ({
   autoCorrect = false,
   maxLength,
   keyboardType = 'default',
-  placeholderTextColor = '#625E59',
   autoCapitalize = 'sentences',
   secureTextEntry = false,
   onBlur,
@@ -63,35 +62,53 @@ export const AppTextInput: React.FC<AppTextInputProps> = ({
         }
       : {};
 
+  const [isFocused, setIsFocused] = useState<boolean>(() => false)
+
+  const onFocus = () => {
+    setIsFocused(true);
+  }
+
+  const onTextInputBlur = (e: any) => {
+    setIsFocused(false);
+    onBlur && onBlur(e)
+  }
+
   return (
     <View style={[styles.appTextInputWrapper, style.wrapper]}>
       <TextInput
         autoCorrect={autoCorrect}
         value={value}
-        style={[styles.appTextInput, style.input, errorStyle]}
+        style={[styles.appTextInput, style.input, errorStyle, isFocused ? styles.focusedTextInput : {}]}
         onChangeText={onChangeText}
         placeholder={placeholder}
         keyboardType={keyboardType}
         maxLength={maxLength}
-        placeholderTextColor={placeholderTextColor}
+        placeholderTextColor={Theme.colors.placeholderColor}
         autoCapitalize={autoCapitalize}
         secureTextEntry={secureTextEntry}
-        onBlur={onBlur}
+        onBlur={onTextInputBlur}
+        onFocus={onFocus}
       />
       <InlineErrorText error={error} />
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   appTextInput: {
     padding: 15,
-    backgroundColor: '#f7f7f7',
+    paddingVertical: 15,
+    backgroundColor: Theme.colors.textInputBackground,
     fontSize: 14,
-    borderRadius: 15,
+    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#f7f7f7',
+    borderColor: Theme.colors.textInputBorderColor,
   },
   appTextInputWrapper: {
     width: '100%',
+    marginBottom: 10
   },
+  focusedTextInput: {
+    borderColor: Theme.colors.primary
+  }
 });

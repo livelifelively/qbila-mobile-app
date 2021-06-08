@@ -54,7 +54,7 @@ export const AppButton: React.FC<AppButtonProps> = ({
       <TouchOpacityButton
         title={title}
         onPress={onPress}
-        wrapperStyles={{ ...buttonStyle, borderColor: color, backgroundColor: 'transparent' }}
+        wrapperStyles={{ ...buttonStyle, borderColor: color, backgroundColor: Theme.colors.outlineButtonBackground }}
         textStyles={textStyle}
       />
     );
@@ -90,6 +90,10 @@ const extendStylesByMode = ({ mode = '', color = '', disabled = false }) => {
 
   switch (mode) {
     case 'outlined':
+      textModeStyle = {
+        ...textModeStyle,
+        color: disabled ? Theme.colors.disabled : Theme.colors.outlineButtonText,
+      };
       buttonModeStyle = {
         ...buttonModeStyle,
         borderColor: color,
@@ -107,7 +111,13 @@ const extendStylesByMode = ({ mode = '', color = '', disabled = false }) => {
         padding: 0,
         borderWidth: 0,
       };
+      break;
 
+    case 'contained':
+      textModeStyle = {
+        ...textModeStyle,
+        color: disabled ? Theme.colors.disabled : Theme.colors.primaryButtonText,
+      };
       break;
 
     default:

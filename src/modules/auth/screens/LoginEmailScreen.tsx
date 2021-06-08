@@ -10,6 +10,7 @@ import { AppButton } from '../../../components/design/AppButton';
 import { AppTextInput } from '../../../components/design/AppTextInput';
 import { signinOTPPost } from '../../../api/auth/requests';
 import { APIRequestsContext } from '../../../contexts/APIRequestsContext';
+import { Logo } from '../../../components/design/Logo';
 
 function LoginEmailScreen({ navigation }: AuthNavProps<'LoginEmail'>) {
   const { apiRequestHandler } = useContext(APIRequestsContext);
@@ -20,24 +21,11 @@ function LoginEmailScreen({ navigation }: AuthNavProps<'LoginEmail'>) {
   });
 
   return (
-    <DefaultLayout backgroundColor="#FCFCFC" paddingHorizontal={45}>
+    <DefaultLayout paddingHorizontal={45}>
       <View style={{ width: '100%' }}>
-        <View
-          style={{
-            height: 65,
-            width: '100%',
-            backgroundColor: '#EBEBEB',
-            marginTop: 100,
-            marginBottom: 65,
-            alignItems: 'center',
-            flexDirection: 'column',
-            justifyContent: 'center',
-          }}
-        >
-          <Text style={{ textAlign: 'center', fontSize: 24 }}>logo</Text>
-        </View>
-        <View style={{ marginBottom: 40 }}>
-          <Text style={{ fontSize: 24, fontFamily: 'Poppins-Medium', textAlign: 'center' }}>Sign In</Text>
+        <Logo />
+        <View style={styles.pageTitleWrapper}>
+          <Text style={styles.pageTitle}>Sign In</Text>
         </View>
         <Formik
           initialValues={{
@@ -66,7 +54,7 @@ function LoginEmailScreen({ navigation }: AuthNavProps<'LoginEmail'>) {
             <View style={{ width: '100%' }}>
               <AppTextInput
                 autoCorrect={false}
-                style={{ input: styles.textInput, wrapper: styles.textInputWrapper }}
+                style={{ input: styles.textInput }}
                 value={values.email}
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
@@ -77,7 +65,7 @@ function LoginEmailScreen({ navigation }: AuthNavProps<'LoginEmail'>) {
               />
               <AppTextInput
                 autoCorrect={false}
-                style={{ input: styles.textInput, wrapper: styles.textInputWrapper }}
+                style={{ input: styles.textInput }}
                 value={values.password}
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
@@ -100,16 +88,8 @@ function LoginEmailScreen({ navigation }: AuthNavProps<'LoginEmail'>) {
           )}
         </Formik>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'absolute',
-          bottom: 30,
-        }}
-      >
-        <Text style={{ fontFamily: 'Poppins-Bold' }}>Don’t have an account,</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+        <Text style={{ fontFamily: 'Poppins-Bold' }}>Have an account, </Text>
         <AppButton
           title="Sign Up"
           mode="text"
@@ -124,12 +104,15 @@ function LoginEmailScreen({ navigation }: AuthNavProps<'LoginEmail'>) {
 }
 
 const styles = StyleSheet.create({
-  textInputWrapper: { marginBottom: 10 },
   textInput: {
     width: '100%',
-    backgroundColor: '#F7F7F7',
-    padding: 18,
   },
+  pageTitle: {
+    fontSize: 24,
+    fontFamily: 'Poppins-Medium',
+    textAlign: 'center'
+  },
+  pageTitleWrapper: { marginBottom: 25 },
 });
 
 export default LoginEmailScreen;
