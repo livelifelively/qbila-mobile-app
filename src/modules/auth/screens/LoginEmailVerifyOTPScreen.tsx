@@ -14,6 +14,7 @@ import { globalStyles } from '../../../theme/globalStyles';
 import Logger from '../../../services/logger';
 import { secondsToMinutesFormat } from '../../../services/date-time';
 import { APIRequestsContext } from '../../../contexts/APIRequestsContext';
+import { Logo } from '../../../components/design/Logo';
 
 function LoginEmailVerifyOTPScreen({ route }: AuthNavProps<'LoginEmailVerifyOTP'>) {
   const { loginEmailPassword } = useContext(AuthContext);
@@ -44,23 +45,10 @@ function LoginEmailVerifyOTPScreen({ route }: AuthNavProps<'LoginEmailVerifyOTP'
   });
 
   return (
-    <DefaultLayout backgroundColor="#FCFCFC" paddingHorizontal={45}>
-      <View
-        style={{
-          height: 65,
-          width: '100%',
-          backgroundColor: '#EBEBEB',
-          marginTop: 100,
-          marginBottom: 65,
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent: 'center',
-        }}
-      >
-        <Text style={{ textAlign: 'center', fontSize: 24 }}>logo</Text>
-      </View>
-      <View style={{ marginBottom: 40 }}>
-        <Text style={{ fontSize: 24, fontFamily: 'Poppins-Medium' }}>Verify Your OTP</Text>
+    <DefaultLayout paddingHorizontal={45}>
+      <Logo />
+      <View style={styles.pageTitleWrapper}>
+        <Text style={styles.pageTitle}>Verify Your OTP</Text>
       </View>
       <Formik
         initialValues={{
@@ -87,7 +75,7 @@ function LoginEmailVerifyOTPScreen({ route }: AuthNavProps<'LoginEmailVerifyOTP'
           <View style={{ width: '100%' }}>
             <AppTextInput
               autoCorrect={false}
-              style={{ input: styles.textInput, wrapper: styles.textInputWrapper }}
+              style={{ input: styles.textInput }}
               value={values.otp}
               onChangeText={handleChange('otp')}
               onBlur={handleBlur('otp')}
@@ -129,12 +117,15 @@ function LoginEmailVerifyOTPScreen({ route }: AuthNavProps<'LoginEmailVerifyOTP'
 }
 
 const styles = StyleSheet.create({
-  textInputWrapper: { marginBottom: 0 },
   textInput: {
     width: '100%',
-    backgroundColor: '#F7F7F7',
-    padding: 18,
   },
+  pageTitle: {
+    fontSize: 24,
+    fontFamily: 'Poppins-Medium',
+    textAlign: 'center'
+  },
+  pageTitleWrapper: { marginBottom: 25 },
 });
 
 export default LoginEmailVerifyOTPScreen;

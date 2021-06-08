@@ -13,6 +13,7 @@ import { verifyEmailPost } from '../../../api/auth/requests';
 import Logger from '../../../services/logger';
 import { GlobalAlertsContext } from '../../../contexts/GlobalAlertsContext';
 import { APIRequestsContext } from '../../../contexts/APIRequestsContext';
+import { Logo } from '../../../components/design/Logo';
 
 const VerifyEmailScreen = ({ navigation, route }: AuthNavProps<'VerifyEmail'>) => {
   const { alert } = useContext(GlobalAlertsContext);
@@ -29,10 +30,8 @@ const VerifyEmailScreen = ({ navigation, route }: AuthNavProps<'VerifyEmail'>) =
   });
 
   return (
-    <DefaultLayout backgroundColor="#FCFCFC" paddingHorizontal={45}>
-      <View style={styles.logo}>
-        <Text style={styles.logoText}>logo</Text>
-      </View>
+    <DefaultLayout paddingHorizontal={45}>
+      <Logo />
       <View style={styles.pageTitleWrapper}>
         <Text style={styles.pageTitle}>Verify Your Email</Text>
       </View>
@@ -104,20 +103,6 @@ const VerifyEmailScreen = ({ navigation, route }: AuthNavProps<'VerifyEmail'>) =
 };
 
 const styles = StyleSheet.create({
-  logo: {
-    height: 65,
-    width: '100%',
-    backgroundColor: '#EBEBEB',
-    marginTop: 100,
-    marginBottom: 120,
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  logoText: {
-    textAlign: 'center',
-    fontSize: 24,
-  },
   pageTitle: {
     fontSize: 24,
     fontFamily: 'Poppins-Medium',
@@ -126,8 +111,6 @@ const styles = StyleSheet.create({
   textInputWrapper: { marginBottom: 10 },
   textInput: {
     width: '100%',
-    backgroundColor: '#F7F7F7',
-    padding: 18,
   },
 });
 
