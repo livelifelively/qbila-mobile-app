@@ -1,10 +1,13 @@
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 import useCachedResources from './src/hooks/useCachedResources';
 import useColorScheme from './src/hooks/useColorScheme';
 import Navigation from './src/navigation';
-import { AuthProvider } from "./src/modules/auth/AuthProvider";
+import { AuthProvider } from './src/modules/auth/AuthProvider';
+import { APIRequestsProvider } from './src/contexts/APIRequestsContext';
+import Theme from './src/theme';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -15,11 +18,13 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        {/* <Navigation colorScheme={colorScheme} /> */}
-        <AuthProvider>
-          <Navigation colorScheme={colorScheme} />
-        </AuthProvider>
-        {/* <StatusBar style="dark" /> */}
+        <PaperProvider theme={Theme}>
+          <APIRequestsProvider>
+            <AuthProvider>
+              <Navigation colorScheme={colorScheme} />
+            </AuthProvider>
+          </APIRequestsProvider>
+        </PaperProvider>
       </SafeAreaProvider>
     );
   }
