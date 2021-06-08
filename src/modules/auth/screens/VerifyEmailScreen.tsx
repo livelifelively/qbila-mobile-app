@@ -1,28 +1,134 @@
-import React from "react";
-import { Text, StyleSheet, Button } from "react-native";
+import React, { useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-import { DefaultLayout } from "../../../layouts/Default";
-import { AuthNavProps } from "../AuthParamList";
+import { DefaultLayout } from '../../../layouts/Default';
+import { AuthNavProps } from '../AuthParamList';
+import { AppButton } from '../../../components/design/AppButton';
+import { AppTextInput } from '../../../components/design/AppTextInput';
+import { globalStyles } from '../../../theme/globalStyles';
+import { verifyEmailPost } from '../../../api/auth/requests';
+import Logger from '../../../services/logger';
+import { GlobalAlertsContext } from '../../../contexts/GlobalAlertsContext';
+import { APIRequestsContext } from '../../../contexts/APIRequestsContext';
 
-const VerifyEmailScreen = ({ navigation, route }: AuthNavProps<"VerifyEmail">) => {
+const VerifyEmailScreen = ({ navigation, route }: AuthNavProps<'VerifyEmail'>) => {
+  const { alert } = useContext(GlobalAlertsContext);
+  const { apiRequestHandler } = useContext(APIRequestsContext);
+  const { email } = route.params;
+
+  const emailVerificationSchema = Yup.object().shape({
+    otp: Yup.string()
+      .required()
+      .matches(/^[0-9]+$/, 'Must be only digits')
+      .min(6, 'Must be exactly 6 digits')
+      .max(6, 'Must be exactly 6 digits'),
+    email: Yup.string().email().required(),
+  });
+
   return (
-    <DefaultLayout>
-      <Text style={styles.text}>VerifyEmail</Text>
-      <Button
-        title="Confirm"
-        onPress={() => {
-          // Set passcode: true, SignUp: true, User and go home
-          navigation.navigate("SetPasscode")
+    <DefaultLayout backgroundColor="#FCFCFC" paddingHorizontal={45}>
+      <View style={styles.logo}>
+        <Text style={styles.logoText}>logo</Text>
+      </View>
+      <View style={styles.pageTitleWrapper}>
+        <Text style={styles.pageTitle}>Verify Your Email</Text>
+      </View>
+      <Formik
+        initialValues={{
+          otp: '',
+          email,
         }}
-      />
+        validationSchema={emailVerificationSchema}
+        onSubmit={async (values) => {
+          try {
+            const signedUp: RequestResponse = await verifyEmailPost(
+              {
+                otp: values.otp,
+                email: values.email,
+              },
+              apiRequestHandler
+            );
+            if (signedUp.status === 'SUCCESS') {
+              alert({
+                logId: 'SIGNUP_SCREEN__SUBMIT--SUCCESS',
+                title: 'Email Verified, please login',
+                ctas: {
+                  acknowledge: {
+                    action: () => {
+                      navigation.navigate('LoginEmail');
+                    },
+                    label: 'Okay',
+                  },
+                },
+              });
+            }
+          } catch (e) {
+            Logger.error('VERIFY_EMAIL_SCREEN__SUBMIT--FAILED', { otp: values.otp, email: values.email });
+          }
+        }}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+          <View style={{ width: '100%' }}>
+            <AppTextInput
+              autoCorrect={false}
+              style={{ input: styles.textInput, wrapper: styles.textInputWrapper }}
+              value={values.otp}
+              onChangeText={handleChange('otp')}
+              onBlur={handleBlur('otp')}
+              keyboardType="number-pad"
+              placeholder="Enter your OTP"
+              error={touched.otp ? errors.otp : ''}
+              maxLength={6}
+            />
+            <View style={{ marginBottom: 70 }}>
+              <Text style={globalStyles.subtext}>You’ll receive a 6 digit OTP on your registered email</Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <AppButton
+                title="Confirm Email"
+                onPress={() => {
+                  handleSubmit();
+                }}
+                size="normal"
+                buttonWrapperStyle={{ paddingHorizontal: 50 }}
+              />
+            </View>
+          </View>
+        )}
+      </Formik>
     </DefaultLayout>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 30
-  }
+  logo: {
+    height: 65,
+    width: '100%',
+    backgroundColor: '#EBEBEB',
+    marginTop: 100,
+    marginBottom: 120,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  logoText: {
+    textAlign: 'center',
+    fontSize: 24,
+  },
+  pageTitle: {
+    fontSize: 24,
+    fontFamily: 'Poppins-Medium',
+  },
+  pageTitleWrapper: { marginBottom: 40 },
+  textInputWrapper: { marginBottom: 10 },
+  textInput: {
+    width: '100%',
+    backgroundColor: '#F7F7F7',
+    padding: 18,
+  },
 });
 
 export default VerifyEmailScreen;

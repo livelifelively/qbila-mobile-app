@@ -1,28 +1,81 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import { AppStackParamList } from "./AppParamList";
+import { AppTabsParamList, AppStackParamList } from './AppParamList';
 
-import HomeScreen from "../modules/home/HomeScreen";
+import HomeScreen from '../modules/bottom-tabs/HomeScreen';
+import VaultScreen from '../modules/bottom-tabs/VaultScreen';
+import RewardsScreen from '../modules/bottom-tabs/RewardsScreen';
 
-import { PostDetailsStack } from "../modules/post-details/PostDetailsStack";
-import { SettingsStack } from "../modules/settings/SettingsStack";
+import { SettingsStack } from '../modules/settings/SettingsStack';
+import { HomeIcon, RewardIcon, VaultIcon } from '../icons';
+import { View, StyleSheet } from 'react-native';
 
-interface AppStackProps {}
-
+const Tabs = createBottomTabNavigator<AppTabsParamList>();
 const Stack = createStackNavigator<AppStackParamList>();
 
-export const AppStack: React.FC<AppStackProps> = ({}) => {
+const AppTabs: React.FC = () => {
+  return (
+    <Tabs.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused }) => {
+          let backgroundStyles = {};
+          if (focused) {
+            backgroundStyles = { backgroundColor: '#FFB850' };
+          }
+
+          switch (route.name) {
+            case 'Home':
+              return (
+                <View style={[styles.buttonBackground, backgroundStyles]}>
+                  <HomeIcon strokeColor={focused ? '#ffffff' : '#FFBC5A'} />
+                </View>
+              );
+            case 'Rewards':
+              return (
+                <View style={[styles.buttonBackground, backgroundStyles]}>
+                  <RewardIcon strokeColor={focused ? '#ffffff' : '#FFBC5A'} />
+                </View>
+              );
+            case 'Vault':
+              return (
+                <View style={[styles.buttonBackground, backgroundStyles]}>
+                  <VaultIcon strokeColor={focused ? '#ffffff' : '#FFBC5A'} />
+                </View>
+              );
+
+            default:
+              break;
+          }
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+        showLabel: false,
+      }}
+    >
+      <Tabs.Screen name="Home" component={HomeScreen} />
+      <Tabs.Screen name="Vault" component={VaultScreen} />
+      <Tabs.Screen name="Rewards" component={RewardsScreen} />
+    </Tabs.Navigator>
+  );
+};
+
+const styles = StyleSheet.create({
+  buttonBackground: { width: 45, height: 45, borderRadius: 45 },
+});
+
+export const AppStack: React.FC = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        header: () => null
+        header: () => null,
       }}
     >
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      {/* POST DETAILS STACK */}
-      <Stack.Screen name="PostDetailsStack" component={PostDetailsStack} />
-      {/* SETTINGS STACK */}
+      <Stack.Screen name="Landing" component={AppTabs} />
+      {/* SETTINGS STACKS */}
       <Stack.Screen name="SettingsStack" component={SettingsStack} />
     </Stack.Navigator>
   );
