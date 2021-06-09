@@ -11,6 +11,7 @@ import RewardsScreen from '../modules/bottom-tabs/RewardsScreen';
 import { SettingsStack } from '../modules/settings/SettingsStack';
 import { HomeIcon, RewardIcon, VaultIcon } from '../icons';
 import { View, StyleSheet } from 'react-native';
+import Theme from '../theme';
 
 const Tabs = createBottomTabNavigator<AppTabsParamList>();
 const Stack = createStackNavigator<AppStackParamList>();
@@ -22,26 +23,26 @@ const AppTabs: React.FC = () => {
         tabBarIcon: ({ focused }) => {
           let backgroundStyles = {};
           if (focused) {
-            backgroundStyles = { backgroundColor: '#FFB850' };
+            backgroundStyles = { backgroundColor: Theme.colors.primary };
           }
 
           switch (route.name) {
             case 'Home':
               return (
                 <View style={[styles.buttonBackground, backgroundStyles]}>
-                  <HomeIcon strokeColor={focused ? '#ffffff' : '#FFBC5A'} />
+                  <HomeIcon strokeColor={focused ? '#ffffff' : Theme.colors.primary} />
                 </View>
               );
             case 'Rewards':
               return (
                 <View style={[styles.buttonBackground, backgroundStyles]}>
-                  <RewardIcon strokeColor={focused ? '#ffffff' : '#FFBC5A'} />
+                  <RewardIcon strokeColor={focused ? '#ffffff' : Theme.colors.primary} />
                 </View>
               );
             case 'Vault':
               return (
                 <View style={[styles.buttonBackground, backgroundStyles]}>
-                  <VaultIcon strokeColor={focused ? '#ffffff' : '#FFBC5A'} />
+                  <VaultIcon strokeColor={focused ? '#ffffff' : Theme.colors.primary} />
                 </View>
               );
 
