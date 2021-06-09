@@ -11,11 +11,12 @@ import { DefaultLayout } from '../../../layouts/Default';
 import { AppButton } from '../../../components/design/AppButton';
 import { AppTextInput } from '../../../components/design/AppTextInput';
 import { AppCheckbox } from '../../../components/design/AppCheckbox';
-import { globalStyles } from '../../../theme/globalStyles';
 import { signupPost } from '../../../api/auth/requests';
 import Logger from '../../../services/logger';
 import { GlobalAlertsContext } from '../../../contexts/GlobalAlertsContext';
 import { APIRequestsContext } from '../../../contexts/APIRequestsContext';
+
+import {Logo} from '../../../components/design/Logo'
 
 function SignupScreen({ navigation }: AuthNavProps<'SignUp'>) {
   const { alert } = useContext(GlobalAlertsContext);
@@ -33,10 +34,8 @@ function SignupScreen({ navigation }: AuthNavProps<'SignUp'>) {
   });
 
   return (
-    <DefaultLayout backgroundColor="#FCFCFC" paddingHorizontal={45}>
-      <View style={styles.logo}>
-        <Text style={styles.logoText}>logo</Text>
-      </View>
+    <DefaultLayout paddingHorizontal={45}>
+      <Logo />
       <View style={styles.pageTitleWrapper}>
         <Text style={styles.pageTitle}>Sign Up</Text>
       </View>
@@ -88,7 +87,7 @@ function SignupScreen({ navigation }: AuthNavProps<'SignUp'>) {
             <View style={{ width: '100%' }}>
               <AppTextInput
                 autoCorrect={false}
-                style={{ input: styles.textInput, wrapper: styles.textInputWrapper }}
+                style={{ input: styles.textInput }}
                 value={values.email}
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
@@ -99,7 +98,7 @@ function SignupScreen({ navigation }: AuthNavProps<'SignUp'>) {
               />
               <AppTextInput
                 autoCorrect={false}
-                style={{ input: styles.textInput, wrapper: styles.textInputWrapper }}
+                style={{ input: styles.textInput }}
                 value={values.password}
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
@@ -110,7 +109,7 @@ function SignupScreen({ navigation }: AuthNavProps<'SignUp'>) {
               />
               <AppTextInput
                 autoCorrect={false}
-                style={{ input: styles.textInput, wrapper: styles.textInputWrapper }}
+                style={{ input: styles.textInput }}
                 value={values.confirmPassword}
                 onChangeText={handleChange('confirmPassword')}
                 onBlur={handleBlur('confirmPassword')}
@@ -125,10 +124,10 @@ function SignupScreen({ navigation }: AuthNavProps<'SignUp'>) {
                     setFieldValue('termsAndConditions', !values.termsAndConditions);
                   }}
                   value={values.termsAndConditions}
+                  error={errors.termsAndConditions}
                 >
                   <Text>I’ve read and I agree to all the terms and conditions.</Text>
                 </AppCheckbox>
-                <Text style={globalStyles.errorText}>{errors.termsAndConditions}</Text>
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                 <AppButton
@@ -160,30 +159,13 @@ function SignupScreen({ navigation }: AuthNavProps<'SignUp'>) {
 }
 
 const styles = StyleSheet.create({
-  logo: {
-    height: 65,
-    width: '100%',
-    backgroundColor: '#EBEBEB',
-    marginTop: 90,
-    marginBottom: 60,
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  logoText: {
-    textAlign: 'center',
-    fontSize: 24,
-  },
   pageTitle: {
     fontSize: 24,
     fontFamily: 'Poppins-Medium',
   },
-  pageTitleWrapper: { marginBottom: 40 },
-  textInputWrapper: { marginBottom: 10 },
+  pageTitleWrapper: { marginBottom: 25 },
   textInput: {
     width: '100%',
-    backgroundColor: '#F7F7F7',
-    padding: 18,
   },
 });
 

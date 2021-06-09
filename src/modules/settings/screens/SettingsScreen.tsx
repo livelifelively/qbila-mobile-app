@@ -6,7 +6,7 @@ import { SettingsNavProps } from '../SettingsParamList';
 import { AuthContext } from '../../auth/AuthProvider';
 import Topbar from '../../../components/design/Topbar';
 import { WhiteView } from '../../../components/design/WhiteView';
-import { LockIcon, LogoutIcon, UserIcon } from '../../../icons';
+import { LogoutIcon, UserIcon } from '../../../icons';
 import { GlobalAlertsContext } from '../../../contexts/GlobalAlertsContext';
 
 const SettingsScreen = ({ navigation }: SettingsNavProps<'Settings'>) => {
@@ -39,25 +39,9 @@ const SettingsScreen = ({ navigation }: SettingsNavProps<'Settings'>) => {
       <TouchableOpacity
         style={styles.settingsAction}
         onPress={() => {
-          navigation.navigate('SecuritySettings');
-        }}
-      >
-        <WhiteView style={styles.settingsActionWrapper}>
-          <View style={styles.settingsActionIcon}>
-            <LockIcon />
-          </View>
-          <View>
-            <Text style={styles.settingsActionTitle}>Security Settings</Text>
-          </View>
-        </WhiteView>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.settingsAction}
-        onPress={() => {
-          // logout();
           prompt({
             logId: 'LOGOUT_CONFIRM_REJECT',
-            title: 'Do you wish to Log out of your account?',
+            title: 'Do you wish to Logout of your account?',
             ctaType: 'CONFIRM_REJECT',
             ctas: {
               confirm: {
@@ -69,7 +53,6 @@ const SettingsScreen = ({ navigation }: SettingsNavProps<'Settings'>) => {
               // eslint-disable-next-line quotes
               reject: { action: () => {}, label: "No, I don't" },
             },
-            body: 'NOTE : You’ll only get 3% interest on withdrawal',
           });
         }}
       >

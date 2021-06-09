@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -22,7 +21,6 @@ const SkipOrNextButton = ({ onSkipClick, onNextClick }) => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
-    // alignItems: 'flex-start',
     flexDirection: 'row',
     width: '100%',
   },

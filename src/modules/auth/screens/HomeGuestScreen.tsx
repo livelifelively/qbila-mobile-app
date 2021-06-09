@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { AuthNavProps } from '../AuthParamList';
 import { DefaultLayout } from '../../../layouts/Default';
 import { AppButton } from '../../../components/design/AppButton';
+import { AuthContext } from '../AuthProvider';
 
 function HomeGuestScreen({ navigation }: AuthNavProps<'HomeGuest'>) {
+  const {reset} = useContext(AuthContext)
+
   return (
     <DefaultLayout>
       <View style={{ ...styles.authButtonsWrapper, ...styles.components }}>
@@ -25,6 +28,13 @@ function HomeGuestScreen({ navigation }: AuthNavProps<'HomeGuest'>) {
           mode="outlined"
           size="large"
           buttonWrapperStyle={styles.authButtons}
+        />
+        <AppButton
+          title="Reset"
+          onPress={() => {
+            reset();
+          }}
+          mode="outlined"
         />
       </View>
     </DefaultLayout>

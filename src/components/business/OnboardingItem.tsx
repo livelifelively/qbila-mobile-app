@@ -18,11 +18,13 @@ const OnboardingItem = ({ slide }) => {
 
 const styles = StyleSheet.create({
   titleText: {
-    fontSize: 30,
+    fontSize: 35,
     textAlign: 'center',
+    marginBottom: 10
   },
   description: {
     textAlign: 'center',
+    paddingHorizontal: 40
   },
   container: {
     justifyContent: 'center',

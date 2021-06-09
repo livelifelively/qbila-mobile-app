@@ -1,20 +1,26 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Checkbox } from 'react-native-paper';
+import { Checkbox, Text } from 'react-native-paper';
+import Theme from '../../theme';
+import { globalStyles } from '../../theme/globalStyles';
 
 interface AppCheckboxProps {
   value: boolean;
   onPress: () => void;
+  error?: string
 }
 
-export const AppCheckbox: React.FC<AppCheckboxProps> = ({ children, value, onPress }) => {
+export const AppCheckbox: React.FC<AppCheckboxProps> = ({ children, value, onPress, error }) => {
   return (
-    <View style={styles.appCheckboxWrapper}>
-      <View>
-        <View style={[styles.appCheckbox, { borderColor: value ? '#fff' : '#44CBB3' }]}></View>
-        <Checkbox status={value ? 'checked' : 'unchecked'} onPress={onPress} color="#44CBB3" uncheckedColor="#44CBB3" />
+    <View style={{marginBottom: 20, position: 'relative'}}>
+      <View style={styles.appCheckboxWrapper}>
+        <View>
+          <View style={[styles.appCheckbox, { borderColor: value ? Theme.colors.checkboxColorSecondary : Theme.colors.checkboxColorPrimary }]}></View>
+          <Checkbox status={value ? 'checked' : 'unchecked'} onPress={onPress} color={Theme.colors.checkboxColorPrimary} uncheckedColor={Theme.colors.checkboxColorPrimary} />
+        </View>
+        <View style={{ width: '85%', marginLeft: 10 }}>{children}</View>
       </View>
-      <View style={{ width: '85%', marginLeft: 10 }}>{children}</View>
+      <Text style={[globalStyles.errorText, styles.errorText]}>{error}</Text>
     </View>
   );
 };
@@ -33,4 +39,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
   },
+  errorText: {
+    position: 'absolute',
+    bottom: -15,
+    left: 8
+  }
 });
