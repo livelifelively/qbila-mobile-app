@@ -1,16 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from "react-native-paper";
+import { DefaultLayout } from '../../layouts/Default';
 
-import { WelcomeNavProps } from '../WelcomeParamList';
-import { DefaultLayout } from '../../../layouts/Default';
-
-function MemberInfoScreen({ navigation }: WelcomeNavProps<'MemberInfo'>) {
+function SubjectsSelectionScreen() {
 
   return (
     <DefaultLayout>
       <View>
-        <Text>MemberInfoScreen</Text>
+        <Text>SubjectsSelectionScreen</Text>
       </View>
     </DefaultLayout>
   );
@@ -31,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MemberInfoScreen;
+export default SubjectsSelectionScreen;

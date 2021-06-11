@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from "react-native-paper";
 
-import { WelcomeNavProps } from '../WelcomeParamList';
+import { SubjectsNavProps } from '../SubjectsParamList';
 import { DefaultLayout } from '../../../layouts/Default';
 
-function SubjectsSelectionScreen({ navigation }: WelcomeNavProps<'MemberInfo'>) {
+function SubjectsSelectionScreen({ navigation }: SubjectsNavProps<'MemberInfo'>) {
 
   return (
     <DefaultLayout>

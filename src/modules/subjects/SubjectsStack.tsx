@@ -1,12 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { WelcomeParamList } from './WelcomeParamList';
+import { SubjectsParamList } from './SubjectsParamList';
 
 import MemberInfoScreen from './screens/MemberInfoScreen';
 import SubjectSelectionScreen from './screens/SubjectsSelectionScreen';
 
-const Stack = createStackNavigator<WelcomeParamList>();
+const Stack = createStackNavigator<SubjectsParamList>();
 
 export const WelcomeStack: React.FC = () => {
   return (

@@ -2,7 +2,7 @@
 export type AppTabsParamList = {
   Home: undefined;
   Rewards: undefined;
-  Vault: undefined;
+  SubjectsSelection: undefined;
 };
 
 // navigation stacks that serve a specific business objective

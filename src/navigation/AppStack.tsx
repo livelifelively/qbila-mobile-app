@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AppTabsParamList, AppStackParamList } from './AppParamList';
 
 import HomeScreen from '../modules/bottom-tabs/HomeScreen';
-import VaultScreen from '../modules/bottom-tabs/VaultScreen';
+import SubjectsSelectionScreen from '../modules/bottom-tabs/SubjectsSelectionScreen';
 import RewardsScreen from '../modules/bottom-tabs/RewardsScreen';
 
 import { SettingsStack } from '../modules/settings/SettingsStack';
@@ -39,7 +39,7 @@ const AppTabs: React.FC = () => {
                   <RewardIcon strokeColor={focused ? '#ffffff' : Theme.colors.primary} />
                 </View>
               );
-            case 'Vault':
+            case 'SubjectsSelection':
               return (
                 <View style={[styles.buttonBackground, backgroundStyles]}>
                   <VaultIcon strokeColor={focused ? '#ffffff' : Theme.colors.primary} />
@@ -58,7 +58,7 @@ const AppTabs: React.FC = () => {
       }}
     >
       <Tabs.Screen name="Home" component={HomeScreen} />
-      <Tabs.Screen name="Vault" component={VaultScreen} />
+      <Tabs.Screen name="SubjectsSelection" component={SubjectsSelectionScreen} />
       <Tabs.Screen name="Rewards" component={RewardsScreen} />
     </Tabs.Navigator>
   );
