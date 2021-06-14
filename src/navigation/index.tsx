@@ -16,7 +16,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 
   useEffect(() => {
     Logger.debug('APP_STATE--NEWLY_LAUNCHED', newlyLaunched);
-    setNewlyLaunched(false);    
+    setNewlyLaunched(false);
   }, []);
 
   return (

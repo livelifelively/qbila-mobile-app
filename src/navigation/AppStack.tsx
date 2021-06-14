@@ -23,26 +23,26 @@ const AppTabs: React.FC = () => {
         tabBarIcon: ({ focused }) => {
           let backgroundStyles = {};
           if (focused) {
-            backgroundStyles = { backgroundColor: Theme.colors.primary };
+            backgroundStyles = { borderTopWidth: 3, borderTopColor: Theme.colors.primary, marginTop: -5 };
           }
 
           switch (route.name) {
             case 'Home':
               return (
                 <View style={[styles.buttonBackground, backgroundStyles]}>
-                  <HomeIcon strokeColor={focused ? '#ffffff' : Theme.colors.primary} />
+                  <HomeIcon strokeColor={focused ? Theme.colors.primary : Theme.colors.text} />
                 </View>
               );
             case 'Rewards':
               return (
                 <View style={[styles.buttonBackground, backgroundStyles]}>
-                  <RewardIcon strokeColor={focused ? '#ffffff' : Theme.colors.primary} />
+                  <RewardIcon strokeColor={focused ? Theme.colors.primary : Theme.colors.text} />
                 </View>
               );
             case 'SubjectsSelection':
               return (
                 <View style={[styles.buttonBackground, backgroundStyles]}>
-                  <VaultIcon strokeColor={focused ? '#ffffff' : Theme.colors.primary} />
+                  <VaultIcon strokeColor={focused ? Theme.colors.primary : Theme.colors.text} />
                 </View>
               );
 
@@ -64,10 +64,6 @@ const AppTabs: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  buttonBackground: { width: 45, height: 45, borderRadius: 45 },
-});
-
 export const AppStack: React.FC = () => {
   return (
     <Stack.Navigator
@@ -81,3 +77,7 @@ export const AppStack: React.FC = () => {
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  buttonBackground: { width: 50, height: 45 },
+});
